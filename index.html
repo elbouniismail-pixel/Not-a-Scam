@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Something Special 💖</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+  opacity: 0.8;
+}
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+.screen {
+  display: none;
+  color: white;
+  padding: 20px;
+  z-index: 2;
+}
+.active { display: block; }
+
+h1 {
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+p {
+  font-size: clamp(1rem, 4vw, 1.3rem);
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  padding: 18px 40px;
+  font-size: 1.2rem;
+  margin-top: 30px;
+}
+
+#nextBtn {
+  background: white;
+  color: #ff2d55;
+}
+
+#yesBtn {
+  background: #ff2d55;
+  color: white;
+  font-size: 1.8rem;
+  padding: 22px 55px;
+  transition: transform 0.3s ease;
+}
+
+#noBtn {
+  background: white;
+  color: #ff2d55;
+  position: absolute;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+}
+
+img {
+  max-width: 280px;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<audio id="popSound" src="https://assets.mixkit.co/sfx/preview/mixkit-bubble-pop-up-1669.mp3"></audio>
+<audio id="bgMusic" src="https://assets.mixkit.co/music/preview/mixkit-romantic-piano-229.mp3" loop></audio>
+
+<!-- Screen 1 -->
+<div class="screen active" id="screen1">
+  <h1>Hello Zainab ✨</h1>
+  <p>
+    Today isn’t ordinary…<br><br>
+    The universe rolled the dice 🎲<br>
+    and you ended up right here for a reason 💫<br><br>
+    Ready to see what’s waiting?
+  </p>
+  <button id="nextBtn">Reveal it 💌</button>
+</div>
+
+<!-- Screen 2 -->
+<div class="screen" id="screen2">
+  <h1>Will you be my Valentine? 💕</h1>
+  <button id="yesBtn">YES 💖</button>
+  <button id="noBtn">no</button>
+</div>
+
+<!-- Screen 3 -->
+<div class="screen" id="screen3">
+  <h1>You just made someone very happy 🥰</h1>
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+  <h1>14/11/25 💘</h1>
+</div>
+
+<script>
+const screen1 = document.getElementById("screen1");
+const screen2 = document.getElementById("screen2");
+const screen3 = document.getElementById("screen3");
+
+const nextBtn = document.getElementById("nextBtn");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+const popSound = document.getElementById("popSound");
+const bgMusic = document.getElementById("bgMusic");
+
+let yesScale = 1;
+
+nextBtn.onclick = () => {
+  screen1.classList.remove("active");
+  screen2.classList.add("active");
+  bgMusic.play();
+  moveNo();
+};
+
+function moveNo() {
+  const yesRect = yesBtn.getBoundingClientRect();
+  const offsetX = Math.random() * 80 - 40;
+  const offsetY = Math.random() * 80 - 40;
+
+  noBtn.style.left = yesRect.left + offsetX + "px";
+  noBtn.style.top = yesRect.top + offsetY + "px";
+
+  popSound.currentTime = 0;
+  popSound.play();
+
+  yesScale += 0.02;
+  yesBtn.style.transform = `scale(${yesScale})`;
+}
+
+document.addEventListener("mousemove", e => {
+  if (!screen2.classList.contains("active")) return;
+  const r = noBtn.getBoundingClientRect();
+  const d = Math.hypot(
+    e.clientX - (r.left + r.width / 2),
+    e.clientY - (r.top + r.height / 2)
+  );
+  if (d < 70) moveNo();
+});
+
+document.addEventListener("touchstart", () => {
+  if (screen2.classList.contains("active")) moveNo();
+});
+
+yesBtn.onclick = () => {
+  screen2.classList.remove("active");
+  screen3.classList.add("active");
+};
+
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}, 350);
+</script>
+
+</body>
+</html>
