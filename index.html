@@ -17,7 +17,6 @@ body {
   text-align: center;
 }
 
-/* ===== THEMES ===== */
 .cosmic {
   background: radial-gradient(circle at top, #1b2735, #090a0f);
   color: #eaeaea;
@@ -28,7 +27,6 @@ body {
   color: white;
 }
 
-/* ===== SCREENS ===== */
 .screen {
   display: none;
   padding: 20px;
@@ -74,7 +72,6 @@ button {
   padding: 8px 16px;
 }
 
-/* ===== HEARTS (ONLY ROMANTIC PAGE) ===== */
 .heart {
   position: absolute;
   bottom: -20px;
@@ -89,7 +86,7 @@ button {
 
 img {
   max-width: 260px;
-  border-radius: 20px;
+  border-radius: 18px;
   margin-top: 20px;
 }
 </style>
@@ -121,6 +118,7 @@ img {
     “okay but what is this about?”<br><br>
     I liiiiike that.
   </p>
+  <img src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif">
   <button class="nextBtn">Keep going</button>
 </div>
 
@@ -133,22 +131,23 @@ img {
     Looks like Ismail really got on your toes 👀<br><br>
     Or rather… he likes that 😏
   </p>
+  <img src="https://media.giphy.com/media/26FPOogenQv5eOZHO/giphy.gif">
   <button class="nextBtn">Alright then</button>
 </div>
 
-<!-- SCREEN 4 (VALENTINE) -->
+<!-- SCREEN 4 -->
 <div class="screen">
   <h1>Will you be my Valentine? 💕</h1>
   <button id="yesBtn">YES 💖</button>
   <button id="noBtn">no</button>
 </div>
 
-<!-- SCREEN 5 (RESULT) -->
+<!-- SCREEN 5 -->
 <div class="screen">
   <h1>BEST.DAY.EVER 🥰</h1>
   <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
   <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
-  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGlwMmFmNnVubm52N3Y2eWoyOWVubGYyOTN1YmdzZmd4d3Jzd2hsMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PtdOBG0BD9Vvi/giphy.gif">
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTV2Z3k3azdrYmZ4dmxlbXU4enhxcnY4ZGE1aWZ4M3NkeWw3d3ZkcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZUpZVrtEOSzu/giphy.gif">
 </div>
 
 <script>
@@ -162,14 +161,12 @@ const noBtn = document.getElementById("noBtn");
 let index = 0;
 let yesScale = 1;
 
-// Next buttons
 document.querySelectorAll(".nextBtn").forEach(btn => {
   btn.onclick = () => {
     screens[index].classList.remove("active");
     index++;
     screens[index].classList.add("active");
 
-    // Switch to romantic mode
     if (index === 3) {
       body.className = "romantic";
       bgMusic.play();
@@ -214,7 +211,6 @@ yesBtn.onclick = () => {
   screens[index].classList.add("active");
 };
 
-// Hearts generator
 function startHearts() {
   setInterval(() => {
     const h = document.createElement("div");
@@ -230,4 +226,3 @@ function startHearts() {
 
 </body>
 </html>
-
